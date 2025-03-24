@@ -1,0 +1,435 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@keyframes moveWave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(10px); }
+}
+
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+
+body {
+    position: fixed;
+    bottom: 2vh;
+    left: 2vw;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.8s ease-out;
+    margin: 0;
+    padding: 0;
+}
+
+#hud {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.map-active {
+    left: 18vw;
+    bottom: 5vh;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.map-active #hud {
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#location-info {
+    position: fixed;
+    bottom: 21vh;
+    left: 8.5vw;
+    transform: translateX(-50%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#location-info.visible {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeInUp 0.5s forwards;
+}
+
+.zone-container {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.street-container {
+    font-size: 0.9375rem;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.direction-container {
+    position: absolute;
+    left: -2.5vw;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bar {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon {
+    font-size: 1.25rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+#health-percent, #hunger-percent, #thirst-percent, #stamina-percent {
+    color: white;
+    font-size: 1.25rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.progress {
+    height: 8px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress div {
+    height: 6px;
+    background: radial-gradient(
+        circle,
+        rgb(255, 255, 255) 0%,
+        rgb(255, 255, 255) 45%,
+        transparent 45%
+    );
+    background-size: 8px 6px;
+    background-repeat: repeat-x;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 3px;
+}
+
+.progress::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.2) 45%,
+        transparent 45%
+    );
+    background-size: 8px 6px;
+    background-repeat: repeat-x;
+    border-radius: 3px;
+}
+
+#health-progress div {
+    background: radial-gradient(
+        circle,
+        rgb(255, 50, 50) 0%,
+        rgb(255, 50, 50) 45%,
+        transparent 45%
+    );
+    background-size: 8px 6px;
+}
+
+#hunger-progress div {
+    background: radial-gradient(
+        circle,
+        rgb(255, 165, 0) 0%,
+        rgb(255, 165, 0) 45%,
+        transparent 45%
+    );
+    background-size: 8px 6px;
+}
+
+#thirst-progress div {
+    background: radial-gradient(
+        circle,
+        rgb(50, 150, 255) 0%,
+        rgb(50, 150, 255) 45%,
+        transparent 45%
+    );
+    background-size: 8px 6px;
+}
+
+#stamina-progress div {
+    background: radial-gradient(
+        circle,
+        rgb(255, 255, 50) 0%,
+        rgb(255, 255, 50) 45%,
+        transparent 45%
+    );
+    background-size: 8px 6px;
+}
+
+#car-hud {
+    position: fixed;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: Arial, sans-serif;
+    display: block;
+    opacity: 0;
+    visibility: visible; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000; 
+}
+
+#car-hud.visible {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeInUp 0.5s forwards;
+}
+
+.car-status {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.seatbelt-container, .fuel-container {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.seatbelt-container:hover, .fuel-container:hover {
+    transform: scale(1.1);
+}
+
+.seatbelt-container i {
+    font-size: 1.5rem;
+    color: #ff3333;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.seatbelt-container.active i {
+    color: #33ff33;
+    animation: pulse 1s ease-in-out;
+}
+
+.speed-container {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#speed-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+#speed-unit {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.fuel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.fuel-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #33ff33;
+    transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fuel-waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+    background-size: 10px 100%;
+    animation: moveWave 1s linear infinite;
+}
+
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 40%;
+    animation: wave 3s infinite linear;
+}
+
+.wave:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.fuel-percent {
+    position: absolute;
+    bottom: 2px;
+    font-size: 0.7rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+body.map-active .progress {
+    width: auto;
+    min-width: 65px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.map-active .bar {
+    width: fit-content;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.map-active #car-hud {
+    left: 31vw;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bar {
+    transform-origin: center left;
+    height: auto;
+    opacity: 1;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#speed-value {
+    transform-origin: center;
+    transition: transform 0.2s ease;
+}
+
+.progress div {
+    transform-origin: left;
+}
+
+#car-hud {
+    transform-origin: center bottom;
+}
+
+.seatbelt-container {
+    transform-origin: center;
+    transition: transform 0.2s ease !important;
+}
+
+#voice-indicator {
+    position: fixed;
+    bottom: 2vh;
+    right: 2vw;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.voice-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.voice-container i {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+#voice-state {
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.voice-container.talking i {
+    color: #33ff33;
+    animation: pulse 1s infinite;
+}
+
+.voice-container.talking #voice-state {
+    color: #33ff33;
+}

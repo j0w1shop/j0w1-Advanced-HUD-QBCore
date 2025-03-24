@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div id="location-info">
+        <div class="zone-container">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="zone-text">Zone Name</span>
+        </div>
+        <div class="street-container">
+            <i class="fas fa-road"></i>
+            <span id="street-text">Street Name</span>
+        </div>
+        <div class="direction-container">
+            <i class="fas fa-compass"></i>
+            <span id="direction-text">N</span>
+        </div>
+    </div>
+    <div id="hud">
+        <div class="bar" id="health-bar">
+            <div class="header">
+                <i class="fas fa-heart-pulse icon"></i>
+                <span id="health-percent">100%</span>
+            </div>
+            <div class="progress">
+                <div id="health-progress"></div>
+            </div>
+        </div>
+        <div class="bar" id="hunger-bar">
+            <div class="header">
+                <i class="fas fa-utensils icon"></i>
+                <span id="hunger-percent">100%</span>
+            </div>
+            <div class="progress">
+                <div id="hunger-progress"></div>
+            </div>
+        </div>
+        <div class="bar" id="thirst-bar">
+            <div class="header">
+                <i class="fas fa-tint icon"></i>
+                <span id="thirst-percent">100%</span>
+            </div>
+            <div class="progress">
+                <div id="thirst-progress"></div>
+            </div>
+        </div>
+        <div class="bar" id="stamina-bar">
+            <div class="header">
+                <i class="fas fa-bolt icon"></i>
+                <span id="stamina-percent">100%</span>
+            </div>
+            <div class="progress">
+                <div id="stamina-progress"></div>
+            </div>
+        </div>
+        <div id="voice-indicator">
+            <div class="voice-container">
+                <i class="fas fa-microphone"></i>
+                <span id="voice-state">NORMAL</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="car-hud">
+        <div class="car-status">
+            <div class="seatbelt-container">
+                <i class="fas fa-user-slash"></i>
+            </div>
+            <div class="speed-container">
+                <span id="speed-value">000</span>
+                <span id="speed-unit">KM/H</span>
+            </div>
+            <div class="fuel-container">
+                <i class="fas fa-gas-pump"></i>
+                <div class="fuel-progress">
+                    <div class="fuel-waves">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                </div>
+                <span class="fuel-percent">100%</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
